@@ -6,10 +6,58 @@
   <link href="knjiznice/css/bootstrap.min.css" rel="stylesheet">
   <style>
     body {padding-top: 70px;}
+        axis path,
+    .axis line {
+      fill: none;
+      stroke: #000;
+      shape-rendering: crispEdges;
+    }
+    
+    .bar {
+      fill: #66CCFF;
+    }
+    
+    .bar:hover {
+      fill: orangered ;
+    }
+    
+    .x.axis path {
+      display: none;
+    }
+    
+    .d3-tip {
+      line-height: 1;
+      font-weight: bold;
+      padding: 12px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      border-radius: 2px;
+    }
+    
+    /* Creates a small triangle extender for the tooltip */
+    .d3-tip:after {
+      box-sizing: border-box;
+      display: inline;
+      font-size: 10px;
+      width: 100%;
+      line-height: 1;
+      color: rgba(0, 0, 0, 0.8);
+      content: "\25BC";
+      position: absolute;
+      text-align: center;
+    }
+    
+    /* Style northward tooltips differently */
+    .d3-tip.n:after {
+      margin: -1px 0 0 0;
+      top: 100%;
+      left: 0;
+    }
   </style>
   <script src="knjiznice/js/jquery-2.2.3.min.js"></script>
   <script src="knjiznice/js/bootstrap.min.js"></script>
   <script src="knjiznice/js/koda.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 </head>
 <body>
 
@@ -22,14 +70,14 @@
           <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
         </button>
         <!-- ZAČETEK: Ime vaše aplikacije -->
-        <a class="navbar-brand" href="index.html">{ime vaše aplikacije}</a>
+        <a class="navbar-brand" href="index.html">DeathDate</a>
         <!-- KONEC: Ime vaše aplikacije -->
       </div>
       <div class="collapse navbar-collapse" id="menujska-vrstica">
         <ul class="nav navbar-nav">
           <li><a href="opis.html">Opis ideje</a></li>
           <li><a href="nacrt.html">Načrt informacijske rešitve</a></li>
-          <li><a href="#">Generiranje podatkov</a></li>
+          <li><a href="#" onclick="generirajVzorcne()">Generiranje podatkov</a></li>
         </ul>
       </div>
     </div>
@@ -38,13 +86,167 @@
 
   <!-- ZAČETEK: Vsebina aplikacije -->
   <div class="container">
-    <div class="row">
-      <div class="col-lg-12 text-center">
-        <p class="lead"><strong>TO-DO</strong>: Na tem mestu implementirajte vašo aplikacijo.</p>
-      </div>
-    </div>
-  </div>
+  	<span id="kreirajSporocilo"></span>
+    <div class="page-header"><h2>Izbor pacienta in izračun <b>pričakovanega</b> datuma <b>smrti</b></h2></div>
+		<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="panel-primary class">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-8"><b>Izbira obstoječega</b> pacienta</div>
+							<div class="col-lg-4 col-md-4 col-sm-4"><select class="form-control input-sm" id="preberiObstojeciEHR"><option value=""></option></select></div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">EHR ID</span><input id="preberiEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
+						<button type="button" class="btn btn-info" onclick="IzpisPodatkov()">Preberi osnovne podatke o bolniku</button><span id="preberiSporocilo"></span><span id="preberiMeritveVitalnihZnakovSporocilo"></span>
+				  	</div>
+					
+					<div class="panel-body" id="izpisPodatkov">
+						<span class="label label-default">EHR ID</span><span class="list-group-item" id="izpisEHRID"></span>
+						<span class="label label-default">Ime</span><span class="list-group-item" id="izpisIme"></span>
+						<span class="label label-default">Priimek</span><span class="list-group-item" id="izpisPriimek"></span>
+						<span class="label label-default">Datum rojstva</span><span class="list-group-item" id="izpisDatumRojstva"></span>
+						<span class="label label-default">Država</span><span class="list-group-item" id="izpisDrzava"></span>
+						<span class="label label-default">Telesna višina</span><div class="input-group"><span class="list-group-item" id="izpisTelesnaVisina"></span><span class="input-group-addon">cm</span></div>
+						<span class="label label-default">Telesna teža</span><div class="input-group"><span class="list-group-item" id="izpisTelesnaTeza"></span><span class="input-group-addon">kg</span></div>
+						<span class="label label-default">Telesna temperatura</span><div class="input-group"><span class="list-group-item" id="izpisTelesnaTemperatura"></span><span class="input-group-addon">°C</span></div>
+						<span class="label label-default">Sistolični krvni tlak</span><div class="input-group"><span class="list-group-item" id="izpisSistolicniTlak"></span><span class="input-group-addon">mm Hg</span></div>
+						<span class="label label-default">Diastolični krvni tlak</span><div class="input-group"><span class="list-group-item" id="izpisDiastolicniTlak"></span><span class="input-group-addon">mm Hg</span></div>
+				  	</div>
+				</div>
+			</div>
+			<div class="row">
+			<div class="col-lg-6 col-md-6 col-sm-6">
+				<div class="panel-primary class">
+					<div class="panel-heading">
+						<div class="row">
+							<div class="col-lg-8 col-md-8 col-sm-8"><b>Vnos novega</b> pacienta</div>
+						</div>
+					</div>
+					<div class="panel-body">
+						<span class="label label-default">Ime</span><div class="input-group"><input id="dodajIme" type="text" class="form-control input-mini" placeholder="Franček"></div>
+						<span class="label label-default">Priimek</span><div class="input-group"><input id="dodajPriimek" type="text" class="form-control input-mini" placeholder="Želva"></div>
+						<span class="label label-default">Datum rojstva</span><input id="dodajDatumRojstva" type="text" class="form-control input-mini" placeholder="1991-25-06T12:00">
+						<span class="label label-default">Drzava</span><div class="input-group"><input id="dodajDrzava" type="text" class="form-control input-mini" placeholder="Slovenia"></div>
+						<span class="label label-default">Telesna višina</span><div class="input-group"><input id="dodajTelesnaVisina" type="text" class="form-control input-mini" placeholder="180"><span class="input-group-addon">cm</span></div>
+						<span class="label label-default">Telesna teža</span><div class="input-group"><input id="dodajTelesnaTeza" type="text" class="form-control input-mini" placeholder="80.00"><span class="input-group-addon">kg</span></div>
+						<span class="label label-default">Telesna temperatura</span><div class="input-group"><input id="dodajTelesnaTemperatura" type="text" class="form-control input-mini" placeholder="36.60"><span class="input-group-addon">°C</span></div>
+						<span class="label label-default">Sistolični krvni tlak</span><div class="input-group"><input id="dodajKrvniTlakSistolicni" type="text" class="form-control input-mini" placeholder="120"><span class="input-group-addon">mm Hg</span></div>
+						<span class="label label-default">Diastolični krvni tlak</span><div class="input-group"><input id="dodajKrvniTlakDiastolicni" type="text" class="form-control input-mini" placeholder="70"><span class="input-group-addon">mm Hg</span></div>
+						<button type="button" class="btn btn-info" onclick="dodajPacienta()">Dodaj pacienta</button><span id="dodajPacienta"></span>
+				  	<div id="seEnId">
+      		<div id="skrijSmrt"><h3>Pacient bo <b>umrl</b> čez <b>približno</b> </h3><h1 class="text-danger" id="stLet"></h1><h3> let.</h3></div>
+      		<div id="skrijSmrt2"><h3>Pacient bi moral <b>umreti</b> pred <b>približno</b> </h3><h1 class="text-danger" id="stLet2"></h1><h3> leti.</h3></div>
+      		<div class="col-lg-8 col-md-8 col-sm-8"></div><button type="button" class="btn btn-warning" onclick="vecInfo()">Več informacij</button></div>
+      		<div id="vecInformacij">
+      		  <span class="label label-warning">Odstopanje starosti od povprečja</span><div class="input-group"><span class="list-group-item" id="odstopanjeLet"></span><span class="input-group-addon">leta</span></div>
+      		  <span class="label label-warning">Odstopanje ITM</span><span class="list-group-item" id="odstopanjeITM"></span>
+      		  <span class="label label-warning">Odstopanje telesne temperature</span><div class="input-group"><span class="list-group-item" id="odstopanjeTemp"></span><span class="input-group-addon">°C</span></div>
+      		  <span class="label label-warning">Odstopanje sistoličnega tlaka</span><div class="input-group"><span class="list-group-item" id="odstopanjeSis"></span><span class="input-group-addon">mm Hg</span></div>
+      		  <span class="label label-warning">Odstopanje diastoličnega tlaka</span><div class="input-group"><span class="list-group-item" id="odstopanjeDia"></span><span class="input-group-addon">mm Hg</span></div>
+      		  <!--<p>Odstopanje starosti od povprečja: </p><p id="odstopanjeLet"></p>-->
+			    </div>  
+      		
+				  	</div>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+		<div class="col-lg-6 col-md-6 col-sm-6" id="izpisSmrti">
+			<div class="panel-group">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<div class="row">
+						<div class="col-lg-8 col-md-8 col-sm-8">Napoved <b>približnega</b> časa <b>smrti</b> pacienta</div>
+							<div class="col-lg-8 col-md-8 col-sm-8"></div><button type="button" class="btn btn-warning" onclick="izracunajSmrt()">Prikaži datum</button></div>
+					</div>
+				</div>
+				
+			</div>
+			
+		
+</div>
   <!-- KONEC: Vsebina aplikacije -->
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
+<script>
+
+var margin = {top: 40, right: 20, bottom: 30, left: 80},
+    width = 960 - margin.left - margin.right,
+    height = 500 - margin.top - margin.bottom;
+
+var formatPercent = d3.format(".0");
+
+var x = d3.scale.ordinal()
+    .rangeRoundBands([0, width], .1);
+
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left")
+    .tickFormat(formatPercent);
+
+var tip = d3.tip()
+  .attr('class', 'd3-tip')
+  .offset([-10, 0])
+  .html(function(d) {
+    return "<strong>Povprečna starost:</strong> <span style='color:red'>" + d.frequency + " let</span>";
+  })
+
+var svg = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+svg.call(tip);
+
+d3.tsv("data.tsv", type, function(error, data) {
+  x.domain(data.map(function(d) { return d.letter; }));
+  y.domain([0, d3.max(data, function(d) { return d.frequency; })]);
+
+  svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+    .append("text")
+      .attr("y", 20)
+      .attr("dy", "-2em")
+      .attr("dx", "17em")
+      .style("text-anchor", "end")
+      .text("Povprečna starost v drugih državah");
+
+  svg.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return x(d.letter); })
+      .attr("width", x.rangeBand())
+      .attr("y", function(d) { return y(d.frequency); })
+      .attr("height", function(d) { return height - y(d.frequency); })
+      .on('mouseover', tip.show)
+      .on('mouseout', tip.hide)
+
+});
+
+function type(d) {
+  d.frequency = +d.frequency;
+  return d;
+}
+
+</script>
 
 </body>
 </html>
