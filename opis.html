@@ -45,7 +45,8 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Opis ideje, ki jo aplikacija podpira -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno dodati <strong>osnovni opis ideje rešitve</strong> (kakšen je osnovni SCENARIJ UPORABE, KDO je ciljna publika, za kakšen NAMEN se aplikacija uporablja).</p><p class="text-muted">Opis naj ne bo daljši od 200 besed.</p>
+            <p>Namen aplikacije je, da na podlagi vnešenih podatkov, ki jih je podal zdravstveni uslužbenec, izračuna približen čas smrti pacienta. Podatki se tudi zabeležijo v EHR Scape bazo. Ciljna publika so zdravstveni uslužbenci, ki bi jim aplikacija pomagala izbrati, katerim pacientom se je potrebno bolj posvetiti oziroma če je potrebno o slabem stanju pacienta obvestiti njegovo družino. Za boljšo natančnost izračuna se za posameznega pacienta uporabljajo lokalni podatki o življenski dobi v njegovi državi.</p>
+            <p><b>Scenarij uporabe:</b> Zdravnik doda podatke novega pacienta in klikne gumb ‘dodaj pacienta’. Nato ga izbere iz seznama ter klikne gumb ‘Preberi osnovne podatke o pacientu’. Izpišejo se osnovni vitalni znaki pacienta in zdravnik ima pri vsaki lastnosti možnost klika, ki mu prikaže odstopanja od željenih vrednosti. Ob kliku na gumb ‘Prikaži datum’ se izpiše približen čas smrti pacienta.</p>
             <!-- KONEC: Opis ideje, ki jo aplikacija podpira -->
           </div>
         </div>
@@ -55,7 +56,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je navesti zunanji vir podatkov (URL naslov), na kakšen način ste ga uporabili (neposredni API klic, uvožena statična datoteka ipd.) in kaj je bil namen uporabe (kako se vključuje v osnovno idejo aplikacije).</p>
+            <p>Kot zunanji vir podatkov je uporabljena statistika povprečne življenske dobe v posamezni državi. Ti podatki so dostopni na spletni strain WHO (<a href="http://apps.who.int/gho/data/node.main.688">World Health Organization</a>) Uporabljeni so, ker se z njihovo pomočjo lahko bolj natančno izračuna čas smrti. Ker spletna stran nudi podatke v JSON obliki, do njih dostopam z ajax zahtevo. </p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>
@@ -65,7 +66,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Master/detail načrtovalski vzorec -->
-            <p><strong>TO-DO</strong>: Na tem mestu morate navesti uporabljen master/detail načrtovalski vzorec in na kakšen način ga nameravate uporabiti.</p>
+            <p>Kot master/detail načrtovalski vzorec je uporabljena razširitev ob kliku posameznega vitalnega znaka. Pokaže nam koliko ta vitalni znak odstopa od optimalnega in kako to vpliva na življensko dobo pacienta.</p>
             <!-- KONEC: Master/detail načrtovalski vzorec -->
           </div>
         </div>
@@ -75,7 +76,7 @@
           </div>
           <div class="panel-body">
             <!-- ZAČETEK: Uporabljeni zunanji viri podatkov -->
-            <p><strong>TO-DO</strong>: Na tem mestu je potrebno navesti uporabljeno tehniko vizualizacije podatkov (za pomoč lahko uporabite primer iz <a href="https://github.com/mbostock/d3/wiki/Gallery" target="_blank">D3.js galerije</a>) in zakaj je bila ta tehnika izbrana.</p>
+            <p>Za vizualizacijo podatkov sem uporabil stolpični grafikon, ki primerja povprečno življensko dobo različnih držav. Prav nam pride pri razumevanju odločitve algoritma. S stolpičnim grafikonom si najlažje predstavljamo razlike v podanih povprečjih.</p>
             <!-- KONEC: Uporabljeni zunanji viri podatkov -->
           </div>
         </div>

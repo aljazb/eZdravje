@@ -99,7 +99,7 @@
 					</div>
 					<div class="panel-body">
 						<span class="label label-default">EHR ID</span><input id="preberiEHRid" type="text" class="form-control input-mini" placeholder="7b661e12-3a98-21ad-c29e-2dc9f5a3d885">
-						<button type="button" class="btn btn-info" onclick="IzpisPodatkov()">Preberi osnovne podatke o bolniku</button><span id="preberiSporocilo"></span><span id="preberiMeritveVitalnihZnakovSporocilo"></span>
+						<button type="button" class="btn btn-info" onclick="izpisPodatkov()">Preberi osnovne podatke o pacientu</button><span id="preberiSporocilo"></span><span id="preberiMeritveVitalnihZnakovSporocilo"></span>
 				  	</div>
 					
 					<div class="panel-body" id="izpisPodatkov">
@@ -146,23 +146,23 @@
       		  </div>
       		  <div id="odstopanjeITMCelo">
       		  <span class="label label-warning">Odstopanje ITM</span><span class="list-group-item" id="odstopanjeITM"></span>
-      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><span class="list-group-item" id="vplivITM"></span>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivITM"></span><span class="input-group-addon">leta</span></div>
       		  </div>
       		  <div id="odstopanjeITMCelo2">
       		  <span class="label label-warning">Odstopanje ITM</span><span class="list-group-item" id="odstopanjeITM2"></span>
-      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><span class="list-group-item" id="vplivITM2"></span>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivITM2"></span><span class="input-group-addon">leta</span></div>
       		  </div>
       		  <div id="odstopanjeTempCelo">
       		  <span class="label label-warning">Odstopanje telesne temperature</span><div class="input-group"><span class="list-group-item" id="odstopanjeTemp"></span><span class="input-group-addon">°C</span></div>
-      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivTemp"></span><span class="input-group-addon">°C</span></div>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivTemp"></span><span class="input-group-addon">leta</span></div>
       		  </div>
       		  <div id="odstopanjeSisCelo">
       		  <span class="label label-warning">Odstopanje sistoličnega tlaka</span><div class="input-group"><span class="list-group-item" id="odstopanjeSis"></span><span class="input-group-addon">mm Hg</span></div>
-      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivSis"></span><span class="input-group-addon">mm Hg</span></div>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivSis"></span><span class="input-group-addon">leta</span></div>
       		  </div>
       		  <div id="odstopanjeDiaCelo">
       		  <span class="label label-warning">Odstopanje diastoličnega tlaka</span><div class="input-group"><span class="list-group-item" id="odstopanjeDia"></span><span class="input-group-addon">mm Hg</span></div>
-      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivDia"></span><span class="input-group-addon">mm Hg</span></div>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivDia"></span><span class="input-group-addon">leta</span></div>
       		  </div>
       		  <!--<p>Odstopanje starosti od povprečja: </p><p id="odstopanjeLet"></p>-->
 			    </div>  

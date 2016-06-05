@@ -309,8 +309,6 @@ $(document).ready(function() {
 function izracunajSmrt() {
     $("#seEnId").toggle(500);
     
-    // window.scrollTo(0,document.body.scrollHeight);
-    
     var letaDoSmrti = 0;
     
 	var starost = $("#izpisDatumRojstva").text().slice(0, 4);
@@ -335,8 +333,8 @@ function izracunajSmrt() {
 	}
 }
 
-function vecInfo(gumb) {
-    if (gumb == "datum") {
+function vecInfo(vitalniZnak) {
+    if (vitalniZnak == "datum") {
         var starost = $("#izpisDatumRojstva").text().slice(0, 4);
         $("#odstopanjeLet").text(Math.abs(Math.round((povSmrtDrzava) - (2016-parseInt(starost)))));
         $("#vplivLeta").text((Math.round(povSmrtDrzava) - (2016-parseInt(starost))));
@@ -347,11 +345,11 @@ function vecInfo(gumb) {
         $("#odstopanjeTempCelo").hide();
         $("#odstopanjeSisCelo").hide();
         $("#odstopanjeDiaCelo").hide();
-    } else if (gumb == "visina") {
+    } else if (vitalniZnak == "visina") {
         var teza = parseInt($("#izpisTelesnaTeza").text());
     	var visina = parseInt($("#izpisTelesnaVisina").text()) / 100;
         $("#odstopanjeITM").text(Math.abs(Math.round(teza / (visina*visina) - 20)));
-        $("#vplivITM").text((-1)*(Math.abs(Math.round(teza / (visina*visina) - 20) * 0.5)));
+        $("#vplivITM").text((-1)*(Math.abs(Math.round((teza / (visina*visina) - 20) * 0.5))));
         
         $("#odstopanjeLetCelo").hide();
         $("#odstopanjeITMCelo").toggle(500);
@@ -359,11 +357,11 @@ function vecInfo(gumb) {
         $("#odstopanjeTempCelo").hide();
         $("#odstopanjeSisCelo").hide();
         $("#odstopanjeDiaCelo").hide();
-    } else if (gumb == "teza") {
+    } else if (vitalniZnak == "teza") {
         var teza = parseInt($("#izpisTelesnaTeza").text());
     	var visina = parseInt($("#izpisTelesnaVisina").text()) / 100;
         $("#odstopanjeITM2").text(Math.abs(Math.round(teza / (visina*visina) - 20)));
-        $("#vplivITM2").text((-1)*(Math.abs(Math.round(teza / (visina*visina) - 20) * 0.5)));
+        $("#vplivITM2").text((-1)*(Math.abs(Math.round((teza / (visina*visina) - 20) * 0.5))));
         
         $("#odstopanjeLetCelo").hide();
         $("#odstopanjeITMCelo").hide()
@@ -371,7 +369,7 @@ function vecInfo(gumb) {
         $("#odstopanjeTempCelo").hide();
         $("#odstopanjeSisCelo").hide();
         $("#odstopanjeDiaCelo").hide();
-    } else if (gumb == "temp") {
+    } else if (vitalniZnak == "temp") {
         $("#odstopanjeTemp").text(Math.abs(Math.round(parseInt($("#izpisTelesnaTemperatura").text()) - 36.5)));
         $("#vplivTemp").text((-1)*(Math.round((parseInt($("#izpisTelesnaTemperatura").text()) - 36.5) * 2)));
         
@@ -381,7 +379,7 @@ function vecInfo(gumb) {
         $("#odstopanjeITMCelo2").hide();
         $("#odstopanjeSisCelo").hide();
         $("#odstopanjeDiaCelo").hide();
-    } else if (gumb == "sis") {
+    } else if (vitalniZnak == "sis") {
         $("#odstopanjeSis").text(Math.abs(Math.round(parseInt($("#izpisSistolicniTlak").text()) - 110)));
         $("#vplivSis").text((-1)*((parseInt($("#izpisSistolicniTlak").text()) - 110) * 0.1));
         
@@ -391,7 +389,7 @@ function vecInfo(gumb) {
         $("#odstopanjeTempCelo").hide();
         $("#odstopanjeSisCelo").toggle(500);
         $("#odstopanjeDiaCelo").hide();
-    } else if (gumb == "dia") {
+    } else if (vitalniZnak == "dia") {
         $("#odstopanjeDia").text(Math.abs(Math.round(parseInt($("#izpisDiastolicniTlak").text()) - 70)));
         $("#vplivDia").text((-1)*((parseInt($("#izpisDiastolicniTlak").text()) - 70) * 0.1));
         
@@ -404,8 +402,7 @@ function vecInfo(gumb) {
     }
 }
 
-function IzpisPodatkov() {
-	var sessionId = getSessionId();
+function izpisPodatkov() {
 	
 	$("#seEnId").hide();
 	
@@ -445,26 +442,11 @@ function IzpisPodatkov() {
         type: 'GET',
         success: function (res) {
             $("#izpisSistolicniTlak").text(res[0].systolic);
-        }
-    });
-    
-     $.ajax({
-        url: baseUrl + "/view/" + ehrId + "/blood_pressure",
-        type: 'GET',
-        success: function (res) {
             $("#izpisDiastolicniTlak").text(res[0].diastolic);
         }
     });
     
 	$.ajax({
-        url: baseUrl + "/view/" + ehrId + "/body_temperature",
-        type: 'GET',
-        success: function (res) {
-            $("#izpisTelesnaTemperatura").text(res[0].temperature);
-        }
-    });
-    
-    $.ajax({
         url: baseUrl + "/view/" + ehrId + "/body_temperature",
         type: 'GET',
         success: function (res) {
