@@ -106,13 +106,13 @@
 						<span class="label label-default">EHR ID</span><span class="list-group-item" id="izpisEHRID"></span>
 						<span class="label label-default">Ime</span><span class="list-group-item" id="izpisIme"></span>
 						<span class="label label-default">Priimek</span><span class="list-group-item" id="izpisPriimek"></span>
-						<span class="label label-default">Datum rojstva</span><span class="list-group-item" id="izpisDatumRojstva"></span>
+						<span class="label label-default">Datum rojstva</span><a href="#a" onclick='vecInfo("datum")' class="list-group-item" id="izpisDatumRojstva"></a>
 						<span class="label label-default">Država</span><span class="list-group-item" id="izpisDrzava"></span>
-						<span class="label label-default">Telesna višina</span><div class="input-group"><span class="list-group-item" id="izpisTelesnaVisina"></span><span class="input-group-addon">cm</span></div>
-						<span class="label label-default">Telesna teža</span><div class="input-group"><span class="list-group-item" id="izpisTelesnaTeza"></span><span class="input-group-addon">kg</span></div>
-						<span class="label label-default">Telesna temperatura</span><div class="input-group"><span class="list-group-item" id="izpisTelesnaTemperatura"></span><span class="input-group-addon">°C</span></div>
-						<span class="label label-default">Sistolični krvni tlak</span><div class="input-group"><span class="list-group-item" id="izpisSistolicniTlak"></span><span class="input-group-addon">mm Hg</span></div>
-						<span class="label label-default">Diastolični krvni tlak</span><div class="input-group"><span class="list-group-item" id="izpisDiastolicniTlak"></span><span class="input-group-addon">mm Hg</span></div>
+						<span class="label label-default">Telesna višina</span><div class="input-group"><a href="#a" onclick='vecInfo("visina")' class="list-group-item" id="izpisTelesnaVisina"></a><span class="input-group-addon">cm</span></div>
+						<span class="label label-default">Telesna teža</span><div class="input-group"><a href="#a" onclick='vecInfo("teza")' class="list-group-item" id="izpisTelesnaTeza"></a><span class="input-group-addon">kg</span></div>
+						<span class="label label-default">Telesna temperatura</span><div class="input-group"><a href="#a" onclick='vecInfo("temp")' class="list-group-item" id="izpisTelesnaTemperatura"></a><span class="input-group-addon">°C</span></div>
+						<span class="label label-default">Sistolični krvni tlak</span><div class="input-group"><a href="#a" onclick='vecInfo("sis")' class="list-group-item" id="izpisSistolicniTlak"></a><span class="input-group-addon">mm Hg</span></div>
+						<span class="label label-default">Diastolični krvni tlak</span><div class="input-group"><a href="#a" onclick='vecInfo("dia")' class="list-group-item" id="izpisDiastolicniTlak"></a><span class="input-group-addon">mm Hg</span></div>
 				  	</div>
 				</div>
 			</div>
@@ -138,17 +138,36 @@
 				  	<div id="seEnId">
       		<div id="skrijSmrt"><h3>Pacient bo <b>umrl</b> čez <b>približno</b> </h3><h1 class="text-danger" id="stLet"></h1><h3> let.</h3></div>
       		<div id="skrijSmrt2"><h3>Pacient bi moral <b>umreti</b> pred <b>približno</b> </h3><h1 class="text-danger" id="stLet2"></h1><h3> leti.</h3></div>
-      		<div class="col-lg-8 col-md-8 col-sm-8"></div><button type="button" class="btn btn-warning" onclick="vecInfo()">Več informacij</button></div>
+      			</div>
       		<div id="vecInformacij">
+      		  <div id="odstopanjeLetCelo">
       		  <span class="label label-warning">Odstopanje starosti od povprečja</span><div class="input-group"><span class="list-group-item" id="odstopanjeLet"></span><span class="input-group-addon">leta</span></div>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivLeta"></span><span class="input-group-addon">leta</span></div>
+      		  </div>
+      		  <div id="odstopanjeITMCelo">
       		  <span class="label label-warning">Odstopanje ITM</span><span class="list-group-item" id="odstopanjeITM"></span>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><span class="list-group-item" id="vplivITM"></span>
+      		  </div>
+      		  <div id="odstopanjeITMCelo2">
+      		  <span class="label label-warning">Odstopanje ITM</span><span class="list-group-item" id="odstopanjeITM2"></span>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><span class="list-group-item" id="vplivITM2"></span>
+      		  </div>
+      		  <div id="odstopanjeTempCelo">
       		  <span class="label label-warning">Odstopanje telesne temperature</span><div class="input-group"><span class="list-group-item" id="odstopanjeTemp"></span><span class="input-group-addon">°C</span></div>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivTemp"></span><span class="input-group-addon">°C</span></div>
+      		  </div>
+      		  <div id="odstopanjeSisCelo">
       		  <span class="label label-warning">Odstopanje sistoličnega tlaka</span><div class="input-group"><span class="list-group-item" id="odstopanjeSis"></span><span class="input-group-addon">mm Hg</span></div>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivSis"></span><span class="input-group-addon">mm Hg</span></div>
+      		  </div>
+      		  <div id="odstopanjeDiaCelo">
       		  <span class="label label-warning">Odstopanje diastoličnega tlaka</span><div class="input-group"><span class="list-group-item" id="odstopanjeDia"></span><span class="input-group-addon">mm Hg</span></div>
+      		  <span class="label label-warning">Vpliv na življensko dobo (negativno zmanjša, pozitivno poveča)</span><div class="input-group"><span class="list-group-item" id="vplivDia"></span><span class="input-group-addon">mm Hg</span></div>
+      		  </div>
       		  <!--<p>Odstopanje starosti od povprečja: </p><p id="odstopanjeLet"></p>-->
 			    </div>  
       		
-				  	</div>
+				  
 				</div>
 			</div>
 		</div>
@@ -169,6 +188,8 @@
 		
 </div>
   <!-- KONEC: Vsebina aplikacije -->
+  
+  <!-- Graf -->
 <script src="http://d3js.org/d3.v3.min.js"></script>
 <script src="http://labratrevenge.com/d3-tip/javascripts/d3.tip.v0.6.3.js"></script>
 <script>

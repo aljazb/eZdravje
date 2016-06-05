@@ -275,7 +275,12 @@ $(document).ready(function() {
     });
     
     
-    $("#vecInformacij").hide();
+    $("#odstopanjeLetCelo").hide();
+    $("#odstopanjeITMCelo").hide();
+    $("#odstopanjeITMCelo2").hide();
+    $("#odstopanjeTempCelo").hide();
+    $("#odstopanjeSisCelo").hide();
+    $("#odstopanjeDiaCelo").hide();
     $("#izpisPodatkov").hide();
     $("#izpisSmrti").hide();
     $("#seEnId").hide();
@@ -302,7 +307,7 @@ $(document).ready(function() {
 });
 
 function izracunajSmrt() {
-    $("#seEnId").show(500);
+    $("#seEnId").toggle(500);
     
     // window.scrollTo(0,document.body.scrollHeight);
     
@@ -330,16 +335,73 @@ function izracunajSmrt() {
 	}
 }
 
-function vecInfo() {
-    $("#vecInformacij").toggle(500);
-    var starost = $("#izpisDatumRojstva").text().slice(0, 4);
-    $("#odstopanjeLet").text(Math.abs(Math.round((povSmrtDrzava) - (2016-parseInt(starost)))));
-    var teza = parseInt($("#izpisTelesnaTeza").text());
-	var visina = parseInt($("#izpisTelesnaVisina").text()) / 100;
-    $("#odstopanjeITM").text(Math.abs(Math.round(teza / (visina*visina) - 20)));
-    $("#odstopanjeTemp").text(Math.abs(Math.round(parseInt($("#izpisTelesnaTemperatura").text()) - 36.5)));
-    $("#odstopanjeSis").text(Math.abs(Math.round(parseInt($("#izpisSistolicniTlak").text()) - 110)));
-    $("#odstopanjeDia").text(Math.abs(Math.round(parseInt($("#izpisDiastolicniTlak").text()) - 70)));
+function vecInfo(gumb) {
+    if (gumb == "datum") {
+        var starost = $("#izpisDatumRojstva").text().slice(0, 4);
+        $("#odstopanjeLet").text(Math.abs(Math.round((povSmrtDrzava) - (2016-parseInt(starost)))));
+        $("#vplivLeta").text((Math.round(povSmrtDrzava) - (2016-parseInt(starost))));
+        
+        $("#odstopanjeLetCelo").toggle(500);
+        $("#odstopanjeITMCelo").hide();
+        $("#odstopanjeITMCelo2").hide();
+        $("#odstopanjeTempCelo").hide();
+        $("#odstopanjeSisCelo").hide();
+        $("#odstopanjeDiaCelo").hide();
+    } else if (gumb == "visina") {
+        var teza = parseInt($("#izpisTelesnaTeza").text());
+    	var visina = parseInt($("#izpisTelesnaVisina").text()) / 100;
+        $("#odstopanjeITM").text(Math.abs(Math.round(teza / (visina*visina) - 20)));
+        $("#vplivITM").text((-1)*(Math.abs(Math.round(teza / (visina*visina) - 20) * 0.5)));
+        
+        $("#odstopanjeLetCelo").hide();
+        $("#odstopanjeITMCelo").toggle(500);
+        $("#odstopanjeITMCelo2").hide();
+        $("#odstopanjeTempCelo").hide();
+        $("#odstopanjeSisCelo").hide();
+        $("#odstopanjeDiaCelo").hide();
+    } else if (gumb == "teza") {
+        var teza = parseInt($("#izpisTelesnaTeza").text());
+    	var visina = parseInt($("#izpisTelesnaVisina").text()) / 100;
+        $("#odstopanjeITM2").text(Math.abs(Math.round(teza / (visina*visina) - 20)));
+        $("#vplivITM2").text((-1)*(Math.abs(Math.round(teza / (visina*visina) - 20) * 0.5)));
+        
+        $("#odstopanjeLetCelo").hide();
+        $("#odstopanjeITMCelo").hide()
+        $("#odstopanjeITMCelo2").toggle(500);
+        $("#odstopanjeTempCelo").hide();
+        $("#odstopanjeSisCelo").hide();
+        $("#odstopanjeDiaCelo").hide();
+    } else if (gumb == "temp") {
+        $("#odstopanjeTemp").text(Math.abs(Math.round(parseInt($("#izpisTelesnaTemperatura").text()) - 36.5)));
+        $("#vplivTemp").text((-1)*(Math.round((parseInt($("#izpisTelesnaTemperatura").text()) - 36.5) * 2)));
+        
+        $("#odstopanjeLetCelo").hide();
+        $("#odstopanjeITMCelo").hide();
+        $("#odstopanjeTempCelo").toggle(500);
+        $("#odstopanjeITMCelo2").hide();
+        $("#odstopanjeSisCelo").hide();
+        $("#odstopanjeDiaCelo").hide();
+    } else if (gumb == "sis") {
+        $("#odstopanjeSis").text(Math.abs(Math.round(parseInt($("#izpisSistolicniTlak").text()) - 110)));
+        $("#vplivSis").text((-1)*((parseInt($("#izpisSistolicniTlak").text()) - 110) * 0.1));
+        
+        $("#odstopanjeLetCelo").hide();
+        $("#odstopanjeITMCelo").hide();
+        $("#odstopanjeITMCelo2").hide();
+        $("#odstopanjeTempCelo").hide();
+        $("#odstopanjeSisCelo").toggle(500);
+        $("#odstopanjeDiaCelo").hide();
+    } else if (gumb == "dia") {
+        $("#odstopanjeDia").text(Math.abs(Math.round(parseInt($("#izpisDiastolicniTlak").text()) - 70)));
+        $("#vplivDia").text((-1)*((parseInt($("#izpisDiastolicniTlak").text()) - 70) * 0.1));
+        
+        $("#odstopanjeLetCelo").hide();
+        $("#odstopanjeITMCelo").hide();
+        $("#odstopanjeITMCelo2").hide();
+        $("#odstopanjeTempCelo").hide();
+        $("#odstopanjeSisCelo").hide();
+        $("#odstopanjeDiaCelo").toggle(500);
+    }
 }
 
 function IzpisPodatkov() {
